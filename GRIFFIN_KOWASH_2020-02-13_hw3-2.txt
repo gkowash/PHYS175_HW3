@@ -1,0 +1,68 @@
+Griffin Kowash
+PHYS 175
+Homework 3 Problem 2
+13 February 2020
+
+
+_____Initial guess_____
+
+	int numbers[6];
+	int *p;
+
+These lines declare an int array 'numbers' with six elements, and an int pointer 'p'.
+	
+	p = numbers;
+	*p = 1;
+
+The array 'numbers' acts like a pointer to the first value in the array, so the value of p is
+now the address of the array's first element. The second line sets the value at this address
+(which is the value of numbers[0]) to 1.
+
+	p++;
+	*p = 4;
+
+The first line increments p by one, so it now points to the address of the succeeding byte in
+memory. The value at this address (p[1]) is set to 4.
+
+	p = &numbers[2];
+	*p = numbers[0];
+
+The pointer p is assigned to the address of the third element, numbers[2], and then
+the value of this element is set to the value of the first element, numbers[0], 
+which is 1.
+
+	p = numbers + *p;
+	*p = 4;
+
+p is assigned the address that is p[2]=1 bytes above p[0], so it now points to p[1].
+This value is then assigned to 4.
+
+	p = numbers + 1;
+	*(p+4) = 5;
+
+p is again assigned to p[1] (one byte past the first element), and then the contents
+at the address 4 bytes greater, or p[5], is set to 5.
+
+The final array should be {1, 4, 1, X, X, 5}, where X indicates an unassigned element.
+These will have unknown values based on whatever was stored at that location previously.
+
+
+
+_____First code run_____
+
+Output: {1, 4, 1, 22068, -2038761072, 5}
+
+Cool! I also confirmed that the 4th and 5th elements change in subsequent runs.
+
+
+
+_____Side investigation_____
+
+I'm noticing that Element 4 is staying very close to 22,000 over multiple runs; for example,
+22024, 21859, 22003, 21996, etc. Element 5 changes more, and the sign flips sometimes, but the
+order of magnitude remains approximately the same. Does it change if I recompile the code?
+
+Not very much. Element 4 is 22048. What if I run some other code and then check again?
+
+Nope, still staying very close to that value. I wonder why. Something is clearly happening to
+the value at that address between runs, but it's only a small change. A mystery! 
