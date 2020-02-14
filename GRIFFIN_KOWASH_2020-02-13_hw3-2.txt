@@ -21,8 +21,8 @@ now the address of the array's first element. The second line sets the value at 
 	p++;
 	*p = 4;
 
-The first line increments p by one, so it now points to the address of the succeeding byte in
-memory. The value at this address (p[1]) is set to 4.
+The first line increments p, and since p is a pointer to ints, it increases the pointer's value by 4 bytes, placing it at
+the location of the next array element, p[1]. The value at this address is then set to 4.
 
 	p = &numbers[2];
 	*p = numbers[0];
@@ -34,14 +34,14 @@ which is 1.
 	p = numbers + *p;
 	*p = 4;
 
-p is assigned the address that is p[2]=1 bytes above p[0], so it now points to p[1].
-This value is then assigned to 4.
+Now, p is assigned the address that is 4 bytes above p[0] (since at this point, *p=1), so it now points to p[1].
+This value is then set to 4.
 
 	p = numbers + 1;
 	*(p+4) = 5;
 
-p is again assigned to p[1] (one byte past the first element), and then the contents
-at the address 4 bytes greater, or p[5], is set to 5.
+p is again assigned to the address of p[1] (four bytes past the first element), and then the contents
+at the address 4*4=16 bytes greater, or p[5], is set to 5.
 
 The final array should be {1, 4, 1, X, X, 5}, where X indicates an unassigned element.
 These will have unknown values based on whatever was stored at that location previously.
